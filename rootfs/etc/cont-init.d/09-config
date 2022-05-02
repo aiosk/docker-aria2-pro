@@ -1,0 +1,32 @@
+#!/usr/bin/with-contenv bash
+
+. /etc/init-base
+PROFILE_URL4="https://raw.githubusercontent.com/aiosk/docker/master/aria2-pro/aria2/script"
+
+DOWNLOAD_PROFILE() {
+    for PROFILE in ${PROFILES}; do
+        [[ ${PROFILE} = *.sh || ${PROFILE} = *.json ]] && cd "${SCRIPT_DIR}" || cd "${ARIA2_CONF_DIR}"
+        while [[ ! -f ${PROFILE} ]]; do
+            rm -rf ${PROFILE}
+            echo
+            echo -e "${INFO} Downloading '${PROFILE}' ..."
+            curl -O ${CURL_OPTIONS} ${PROFILE_URL4}/${PROFILE}
+            [[ -s ${PROFILE} ]] && {
+                echo -e "${INFO} '${PROFILE}' download completed !"
+            } || {
+                echo
+                echo -e "${ERROR} '${PROFILE}' download error, retry ..."
+                sleep 3
+            }
+        done
+    done
+}
+
+PROFILES="
+healthcheck.json
+healthcheck.sh
+"
+
+DOWNLOAD_PROFILE
+
+exit 0
