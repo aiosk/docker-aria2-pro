@@ -1,0 +1,7 @@
+{
+    "id": "",
+    "method": "aria2.getVersion",
+    "params": [
+        "token:$TOKEN"
+    ]
+}
