@@ -1,7 +1,7 @@
 #!/usr/bin/with-contenv bash
 
 . /etc/init-base
-PROFILE_URL4="https://raw.githubusercontent.com/aiosk/docker-aria2-pro/1.0.1/script"
+PROFILE_URL4="https://raw.githubusercontent.com/aiosk/docker-aria2-pro/1.0.2/script"
 
 DOWNLOAD_PROFILE() {
     for PROFILE in ${PROFILES}; do
