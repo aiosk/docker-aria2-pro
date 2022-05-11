@@ -4,10 +4,10 @@
 
 ## docker-compose.yml
 ```
-version: "3"
+version: "2"
 services:
   aria2:
-    image: ghcr.io/aiosk/aria2-pro
+    image: ghcr.io/aiosk/aria2-pro:latest
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
@@ -30,23 +30,23 @@ services:
       - 6888:6888
       - 6888:6888/udp
     restart: unless-stopped
+    mem_limit: 32m
     logging:
       driver: json-file
       options:
         max-size: 1m
 
-  aria2ng:
-    image: lscr.io/linuxserver/nginx
+  ariang:
+    image: ghcr.io/aiosk/ariang:latest
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
-    volumes:
-      - /path/to/config:/config
-      - /path/to/AriaNg:/config/www
+      - ARIA2_TOKEN=${RPC_SECRET}
     ports:
       - 6880:80
     restart: unless-stopped
+    mem_limit: 32m
     logging:
       driver: json-file
       options:
